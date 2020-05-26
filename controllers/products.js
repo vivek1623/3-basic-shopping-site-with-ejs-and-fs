@@ -1,7 +1,7 @@
 const Product = require('../models/products')
 
 exports.getAddProducts = (req, res) => {
-  res.render('add-product', {
+  res.render('admin/add-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product'
   })
@@ -19,7 +19,7 @@ exports.addProduct = (req, res) => {
 
 exports.getProducts = async (req, res) => {
   const products =  await Product.fetchAll()
-  res.render('shop', {
+  res.render('shop/product-list', {
     pageTitle: 'shop',
     products: products,
     path: '/'
