@@ -1,4 +1,22 @@
-const products = []
+const fs = require('fs')
+const path = require('path')
+
+const readProductFromFile = callback => {
+  const p = path.join(__dirname, '../', 'database', 'products.json')
+  fs.readFile(p, (err, fileContent) => {
+    let products = []
+    if (!err)
+      products = JSON.parse(fileContent)
+    callback(products)
+  })
+}
+
+const writeProductInFile = products => {
+  const p = path.join(__dirname, '../', 'database', 'products.json')
+  fs.writeFile(p, JSON.stringify(products), err => {
+    console.log(err)
+  })
+}
 
 module.exports = class Product {
   constructor(t) {
@@ -6,10 +24,14 @@ module.exports = class Product {
   }
 
   save() {
-    products.push(this)
+    readProductFromFile(products => {
+      products.push(this)
+      writeProductInFile(products)
+    })
   }
 
   static fetchAll() {
-    return products
+    const p = path.join(__dirname, '../', 'database', 'products.json')
+    return new Promise(readProductFromFile)
   }
 }

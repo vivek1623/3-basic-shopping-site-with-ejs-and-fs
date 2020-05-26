@@ -17,8 +17,8 @@ exports.addProduct = (req, res) => {
   }
 }
 
-exports.getProducts = (req, res) => {
-  const products = Product.fetchAll()
+exports.getProducts = async (req, res) => {
+  const products =  await Product.fetchAll()
   res.render('shop', {
     pageTitle: 'shop',
     products: products,
