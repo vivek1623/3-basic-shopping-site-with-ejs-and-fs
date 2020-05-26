@@ -16,3 +16,12 @@ exports.addProduct = (req, res) => {
     res.redirect('/admin/add-product')
   }
 }
+
+exports.getProducts = async (req, res) => {
+  const products =  await Product.fetchAll()
+  res.render('admin/products', {
+    pageTitle: 'All admin products',
+    products: products,
+    path: '/admin/products'
+  })
+}
