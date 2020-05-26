@@ -25,3 +25,24 @@ exports.getProducts = async (req, res) => {
     path: '/'
   })
 }
+
+exports.getProductDetails = async (req, res) => {
+  res.render('shop/product-details', {
+    pageTitle: 'Product Details',
+    path: '/product'
+  })
+}
+
+exports.getCart = async (req, res) => {
+  res.render('shop/cart', {
+    pageTitle: 'Cart',
+    path: '/cart'
+  })
+}
+
+exports.getCheckout = async (req, res) => {
+  res.render('shop/checkout', {
+    pageTitle: 'Checkout',
+    path: '/checkout'
+  })
+}
