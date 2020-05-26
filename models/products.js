@@ -1,9 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 
+const productFilePath = path.join(__dirname, '../', 'database', 'products.json')
+
 const readProductFromFile = callback => {
-  const p = path.join(__dirname, '../', 'database', 'products.json')
-  fs.readFile(p, (err, fileContent) => {
+  fs.readFile(productFilePath, (err, fileContent) => {
     let products = []
     if (!err)
       products = JSON.parse(fileContent)
@@ -12,8 +13,7 @@ const readProductFromFile = callback => {
 }
 
 const writeProductInFile = products => {
-  const p = path.join(__dirname, '../', 'database', 'products.json')
-  fs.writeFile(p, JSON.stringify(products), err => {
+  fs.writeFile(productFilePath, JSON.stringify(products), err => {
     console.log(err)
   })
 }
