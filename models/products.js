@@ -59,4 +59,18 @@ module.exports = class Product {
       })
     })
   }
+
+  static findByIdAndDelete(_id) {
+    return new Promise(resolve => {
+      readProductFromFile(products => {
+        const index = products.findIndex(item => item._id === _id)
+        if (index !== -1) {
+          const product = products[index]
+          products.splice(index, 1)[0]
+          writeProductInFile(products)
+          resolve(product)
+        } else resolve(null)
+      })
+    })
+  }
 }

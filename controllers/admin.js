@@ -45,3 +45,9 @@ exports.getProducts = async (req, res) => {
     path: '/admin/products'
   })
 }
+
+exports.deleteProduct = async (req, res) => {
+  if (req.query._id)
+    await Product.findByIdAndDelete(req.query._id)
+  res.redirect('/admin/products')
+}
