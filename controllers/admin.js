@@ -11,7 +11,7 @@ exports.getAddProduct = (req, res) => {
 exports.getEditProduct = async (req, res) => {
   const id = req.params.id
   const product = await Product.findById(id)
-  if(!product)
+  if (!product)
     return res.redirect('/')
   res.render('admin/add-product', {
     pageTitle: 'Edit Product',
@@ -21,10 +21,16 @@ exports.getEditProduct = async (req, res) => {
   })
 }
 
-exports.addProduct = (req, res) => {
+exports.addOrUpdateProduct = async (req, res) => {
   if (req.body.title && req.body.title.trim().length > 0) {
-    const product = new Product(req.body)
-    product.save()
+    if (req.query._id) {
+      const product = await Product.findAndUpdate({ ...req.body, _id: req.query._id })
+      if (!product)
+        res.redirect('/admin/add-product')
+    } else {
+      const product = new Product(req.body)
+      product.save()
+    }
     res.redirect('/admin/products')
   } else {
     res.redirect('/admin/add-product')

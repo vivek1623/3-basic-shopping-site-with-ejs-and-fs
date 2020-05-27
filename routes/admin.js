@@ -8,7 +8,7 @@ router.get('/add-product', adminControllers.getAddProduct)
 
 router.get('/edit-product/:id', adminControllers.getEditProduct)
 
-router.post('/product', adminControllers.addProduct)
+router.post('/product', adminControllers.addOrUpdateProduct)
 
 router.get('/products', adminControllers.getProducts)
 

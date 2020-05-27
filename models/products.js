@@ -28,7 +28,7 @@ module.exports = class Product {
 
   save() {
     readProductFromFile(products => {
-      this._id = Math.random().toString() 
+      this._id = Math.random().toString()
       products.push(this)
       writeProductInFile(products)
     })
@@ -38,11 +38,24 @@ module.exports = class Product {
     return new Promise(readProductFromFile)
   }
 
-  static findById(_id){
+  static findById(_id) {
     return new Promise((resolve, reject) => {
       readProductFromFile(products => {
         const product = products.find(item => item._id === _id)
         resolve(product)
+      })
+    })
+  }
+
+  static findAndUpdate(product) {
+    return new Promise((resolve, reject) => {
+      readProductFromFile(products => {
+        const index = products.findIndex(item => item._id === product._id)
+        if (index !== -1) {
+          products[index] = product
+          writeProductInFile(products)
+          resolve(products[index])
+        } else resolve(null)
       })
     })
   }
