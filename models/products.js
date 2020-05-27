@@ -28,13 +28,22 @@ module.exports = class Product {
 
   save() {
     readProductFromFile(products => {
+      this._id = Math.random().toString() 
       products.push(this)
       writeProductInFile(products)
     })
   }
 
   static fetchAll() {
-    const p = path.join(__dirname, '../', 'database', 'products.json')
     return new Promise(readProductFromFile)
+  }
+
+  static findById(_id){
+    return new Promise((resolve, reject) => {
+      readProductFromFile(products => {
+        const product = products.find(item => item._id === _id)
+        resolve(product)
+      })
+    })
   }
 }

@@ -1,9 +1,23 @@
 const Product = require('../models/products')
 
-exports.getAddProducts = (req, res) => {
+exports.getAddProduct = (req, res) => {
   res.render('admin/add-product', {
     pageTitle: 'Add Product',
-    path: '/admin/add-product'
+    path: '/admin/add-product',
+    editing: false
+  })
+}
+
+exports.getEditProduct = async (req, res) => {
+  const id = req.params.id
+  const product = await Product.findById(id)
+  if(!product)
+    return res.redirect('/')
+  res.render('admin/add-product', {
+    pageTitle: 'Edit Product',
+    path: '/admin/edit-product',
+    editing: true,
+    product: product
   })
 }
 
