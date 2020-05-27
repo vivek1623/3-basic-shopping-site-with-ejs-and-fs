@@ -19,8 +19,11 @@ const writeProductInFile = products => {
 }
 
 module.exports = class Product {
-  constructor(t) {
-    this.title = t
+  constructor({ title, price, imageUrl, description }) {
+    this.title = title
+    this.price = price
+    this.imageUrl = imageUrl
+    this.description = description
   }
 
   save() {

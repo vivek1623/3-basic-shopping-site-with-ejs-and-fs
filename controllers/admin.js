@@ -9,16 +9,16 @@ exports.getAddProducts = (req, res) => {
 
 exports.addProduct = (req, res) => {
   if (req.body.title && req.body.title.trim().length > 0) {
-    const product = new Product(req.body.title)
+    const product = new Product(req.body)
     product.save()
-    res.redirect('/')
+    res.redirect('/admin/products')
   } else {
     res.redirect('/admin/add-product')
   }
 }
 
 exports.getProducts = async (req, res) => {
-  const products =  await Product.fetchAll()
+  const products = await Product.fetchAll()
   res.render('admin/products', {
     pageTitle: 'All admin products',
     products: products,
