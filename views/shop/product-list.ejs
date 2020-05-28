@@ -23,7 +23,9 @@
         <p class="product__description"><%= product.description %></p>
       </div>
       <div class="card__actions">
-        <button class="btn full-width">Add to Cart</button>
+        <form action="/add-to-cart?_id=<%=product._id %>" method="POST">
+          <button class="btn full-width">Add to Cart</button>
+        </form>
       </div>
     </article>
     <% }  } %>
