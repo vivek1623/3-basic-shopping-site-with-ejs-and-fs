@@ -20,6 +20,10 @@ const writeCartInFile = cart => {
 
 module.exports = class Cart {
 
+  static fetchAll() {
+    return new Promise(readCartFromFile)
+  }
+
   static addProductToCart(product) {
     return new Promise(resolve => {
       readCartFromFile(cart => {
@@ -34,6 +38,17 @@ module.exports = class Cart {
         writeCartInFile(cart)
         resolve(product)
       })
+    })
+  }
+
+  static findByIdAndRemove(_id) {
+    readCartFromFile(cart => {
+      const index = cart.products.findIndex(product => product._id === _id)
+      if (index !== -1) {
+        cart.totalPrice = cart.totalPrice - cart.products[index].price * cart.products[index].quantity
+        cart.products = cart.products.filter(product => product._id !== _id)
+        writeCartInFile(cart)
+      }
     })
   }
 }
