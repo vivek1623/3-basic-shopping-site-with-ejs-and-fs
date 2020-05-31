@@ -1,1 +1,1 @@
-# shop-now
+# basic-shopping-site-with-ejs-and-fs
